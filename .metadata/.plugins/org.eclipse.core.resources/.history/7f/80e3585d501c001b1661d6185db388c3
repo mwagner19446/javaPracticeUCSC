@@ -1,0 +1,29 @@
+package finalproject;
+
+//dynamically update the size of the arrays based on the input file. 
+//fix the console print to address the issues with 2 digits
+//split displayAverages into two private classes-- one to calculate averages and the other to print. 
+//add the "This." modifier to make the OOO clearer.  
+//check the iterator:  If there isn't an extra line added it doesn't add the student correctly. 
+//review the previous homework solutions
+//add cleanup
+
+
+///uses the main class LetterGrader-- which determines the grade
+public class TestLetterGrader {
+	
+	public static void main (String args[]) {
+		if(args.length < 2) {//validates there are two arguments
+			System.out.println("Usage: must have an input and output file.  Please update your arguments.");
+		}//end if
+		else {
+			LetterGrader letterGrader=new LetterGrader(args[0], args[1]);
+			letterGrader.createScoreArray(); 
+			//letterGrader.readScore(); 
+			//letterGrader.calcLetterGrade(); 
+			//letterGrader.printGrade(); 
+			//letterGrader.displayAverages(); 
+			//letterGrader.doCleanup();	
+		}//end else
+	}// end main
+} //end class TestLetterGrader

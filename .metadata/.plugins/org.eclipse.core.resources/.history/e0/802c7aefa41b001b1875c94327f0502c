@@ -1,0 +1,20 @@
+package finalproject;
+
+//fix the printGrade Method
+//create calcLetterGrade()-- resolve null int issue
+//check the iterator:  If there isn't an extra line added it doesn't add the student correctly. 
+//review the previous homework solutions
+
+///uses the main class LetterGrader-- which determines the grade
+public class TestLetterGrader {
+	
+	public static void main (String args[]) {
+		LetterGrader letterGrader=new LetterGrader(args[0], args[1]);
+		letterGrader.readScore(); 
+		letterGrader.calcLetterGrade(); 
+		letterGrader.printGrade(); 
+		//letterGrader.displayAverages(); 
+		//letterGrader.doCleanup(); 
+		
+	}// end main
+} //end class TestLetterGrader

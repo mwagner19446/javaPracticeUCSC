@@ -1,0 +1,22 @@
+package finalproject;
+
+//add exceptions-- fewer than seven scores-- don't add
+//add business logic to round scores up for letter grade
+//check the iterator:  If there isn't an extra line added it doesn't add the student correctly. 
+//review the previous homework solutions
+//add cleanup
+
+
+///uses the main class LetterGrader-- which determines the grade
+public class TestLetterGrader {
+	
+	public static void main (String args[]) {
+		LetterGrader letterGrader=new LetterGrader(args[0], args[1]);
+		letterGrader.readScore(); 
+		letterGrader.calcLetterGrade(); 
+		letterGrader.printGrade(); 
+		letterGrader.displayAverages(); 
+		//letterGrader.doCleanup(); 
+		
+	}// end main
+} //end class TestLetterGrader

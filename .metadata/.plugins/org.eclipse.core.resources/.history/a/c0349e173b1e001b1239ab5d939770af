@@ -1,0 +1,21 @@
+package finalproject;
+
+//start notes at scores class.  Analytics class should be next. 
+//review the previous homework solutions
+
+public class TestLetterGrader {
+	
+	public static void main (String args[]) {
+		if(args.length < 2) {//validates there are two arguments
+			System.out.println("Usage: must have an input and output file.  Please update your arguments.");
+		}//end if
+		else {
+			LetterGrader letterGrader=new LetterGrader(args[0], args[1]);
+			letterGrader.readScore(); 
+			letterGrader.calcLetterGrade(); 
+			letterGrader.printGrade(); 
+			letterGrader.displayAnalytics();
+			letterGrader.doCleanup(); 
+		}//end else
+	}// end main
+} //end class TestLetterGrader

@@ -1,0 +1,19 @@
+package finalproject;
+
+
+//create iterator within letterGrader:  The issue is iterating through the scanner.  Maybe skip and go to the next section? 
+//review the previous homework solutions
+
+///uses the main class LetterGrader-- which determines the grade
+public class TestLetterGrader {
+	
+	public static void main (String args[]) {
+		LetterGrader letterGrader=new LetterGrader(args[0], args[1]);
+		letterGrader.readScore(); 
+		//letterGrader.calcLetterGrade(); 
+		//letterGrader.printGrade(); 
+		//letterGrader.displayAverages(); 
+		//letterGrader.doCleanup(); 
+		
+	}// end main
+} //end class TestLetterGrader

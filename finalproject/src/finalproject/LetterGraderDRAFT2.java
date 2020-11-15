@@ -1,0 +1,268 @@
+///*
+//
+//package finalproject;
+//
+//import java.io.File;
+//import java.io.FileNotFoundException;
+//import java.io.FileOutputStream;
+//import java.io.IOException;
+//import java.io.PrintWriter;
+//import java.util.Scanner;
+//import java.util.StringTokenizer;
+//
+///**
+// * This is a solution for the Final	
+// * The class has five public methods.  
+// *  
+// * The readScore method reads the input file and stores the scores in the Score Array. 
+// * The calcLetterGrade reads the scores from the Score Array and calculates a Letter grade
+// * The printGrade method prints the Letter grade to the Output file. 
+// * The displayAverages calculates the average, min, and max scores for the quizzes and exams and prints them in the console. 
+// *  
+// *   
+// * NOTE:  The program assumes the input file will structure its rows with 8 tokens (and 7 deliminators).  
+// * It assumes the deliminators will be commas. 
+// * It will accept any number of rows. 
+// * 
+// * @author michael
+// * @date 10/25/2020
+// */
+///*
+//public class LetterGrader {
+//	String fileName1; //Captures the name of the inputFile.  Used in the error messages.  
+//	String fileName2; //Captures the name of the outputFile.  Used in the error messages. 
+//	File inputFile;  //Creates a file object for the inputFile. 
+//	File outputFile; //Creates a file object for the outputFile. 
+//	String [][]scores;//=new String[8][8];  //Creates an array of arrays for Student Scores.  
+//	String [][]letterGrade;//=new String [8][2]; //Creates an array of arrays for the Student Letter Grade Scores. 
+//	Double avgGrade[]=new Double[7]; //Creates an array for the averages on each quiz or exam. NOTE:  Wrapper class is used over primitive to allow casting. 
+//	Integer minGrade[]=new Integer[7]; //Creates an array for the minimum on each quiz or exam. NOTE:  Wrapper class is used over primitive to allow casting.   
+//	Integer maxGrade[]=new Integer[7]; //Creates an array for the maximum on each quiz or exam.  NOTE:  Wrapper class is used over primitive to allow casting. 
+//	Integer lineCount;  //Tracks the line being evaluated in the input file.  
+//	Integer scorePosition; //Tracks the score position in the arrays. 
+//	Double gradeTotal; //Tracks the aggregate grade value for the class.  This is used to calculate the grade average. NOTE:  Wrapper class is used over primitive to allow casting. 
+//	Double rawScore; //Tracks the rawScore for the class.  This is used to calculate the letterGrade.  NOTE:  Wrapper class is used over primitive to allow casting. 
+//	Scanner readInput; //Creates the file to read
+//	
+//	/*
+//	 * Short description: The LetterGrader constructor creates an object. <p>
+//	 * Long description: The LetterGrader constructor creates an object. It creates two file objects from the inputs. <p>
+//	 * It is referenced by: {@link #main} method  <br>
+//	 * It references:   No other methods. <br>
+//	 * @param input and output.    Both are command arguments. 
+//	 * @return NONE.  Constructor method 
+//	 */
+//	LetterGrader(String input, String output){
+//		inputFile= new File(input);//input_final.txt parameters
+//		outputFile= new File(output);//output_final.txt parameters
+//	} //end LetterGrader constructor
+//
+//	
+//	private void readFile() {
+//		try {
+//			this.readInput = new Scanner(this.inputFile);
+//		}//end try
+//				
+//		catch (FileNotFoundException e) {//File Not Found
+//			System.out.println("File: " + fileName1 + "not found");
+//		} // end catch
+//		catch (IOException e) {//IO Exception
+//			System.out.println("Error Reading from file: "+ fileName1 + e.getMessage());
+//		} // end catch
+//		catch (Exception e) {//General Exception
+//			System.out.println(e);
+//		} // end catch	
+//	}//end readFile
+//	
+//
+//	private void createScoreArray() {
+//		lineCount=0; 
+//		while(this.readInput.hasNextLine()) {
+//			StringTokenizer newLine= new StringTokenizer(readInput.nextLine(),","); //Creates a StringTokenizer object from the next line
+//			if(newLine.countTokens()==8) {//only works on lines with 8 values. 
+//				lineCount++;
+//				}//end if
+//		}//end while
+//		scores=new String[lineCount][8];  //Creates an array of arrays for Student Scores.  
+//		letterGrade=new String [lineCount][2]; //Creates an array of arrays for the Student Letter Grade Scores. 
+//		
+//	}//end method createScoreArray
+//
+//	
+//	/*
+//	 * Short description: The readScore method takes reads the inputFile and stores the scores. <br>    
+//	 * Long description: The readScore method takes reads the inputFile and stores the scores.  <br>
+//	 * The method reads the LetterGrader's inputFile Object.  
+//	 * The method uses the StringTokenizer Object to separate the values.  
+//	 * The scores are stored in the scores array, a multi-dimensional array with the sub-arrays created for the individual students.   <br> 
+//	 * It is referenced by: {@link #main} method  <br>
+//	 * It references:   No other methods. <br>
+//	 * @param None.     Consumes the LetterGrader's inputFile Object.  
+//	 * 					Creates a StringTokenizer to separate the values. <br> 
+//	 * @return NONE.  	Modifies the scores array <br>
+//	 */
+//	public void readScore(){
+//		this.readFile(); //Reads the file 
+//		this.createScoreArray(); //Creates the appropriate array
+//		this.readFile(); //Re-opens the file to iterate through it
+//		lineCount=1; 
+//		scorePosition=0; 
+//			
+//		do{		
+//			StringTokenizer newLine= new StringTokenizer(readInput.nextLine(),","); //Creates a StringTokenizer object from the next line
+//			if(newLine.countTokens()==8) {//only works on lines with 8 values. 
+//				while (newLine.hasMoreTokens()) {//iterate when there are more scores
+//					scores[lineCount-1][scorePosition]=newLine.nextToken(); //score is written to array
+//					scorePosition++; //iterate on scoreNumber
+//				}//end while hasMoreTokens()
+//			}//end if
+//			lineCount++;  //iterate on lineCount
+//			scorePosition=0; //reset score number
+//		}while(readInput.hasNextLine());//end do-while hasNextLine()
+//
+//	}//end method readScore; 
+//	
+//		
+//	/*
+//	 * Short description: The calcLetterGrade method calculates a letterGrade based on the rawScores <br>    
+//	 * Long description: The calcLetterGrade method calculates a letterGrade based on the rawScores  <br>
+//	 * The method reads the LetterGrader's multi-dimensional score array.  
+//	 * The method transform the string values fro the array to doubles, and then aggregates them in a rawScore variable. 
+//	 * The method assigns a letterGrade based on a cascading "if" statement.  
+//	 * The methed stores the letterGrade in the letterGrade array.  <br> 
+//	 * It is referenced by: {@link #main} method  <br>
+//	 * It references:   No other methods. <br>
+//	 * @param None.     Consumes the scores array.<br> 
+//	 * @return NONE.  	Modifies the letterGrader array <br>
+//	 */
+//	public void calcLetterGrade(){
+//		for(int i=0; i<scores.length; i++) {//iterate through outer array
+//			letterGrade[i][0]=scores[i][0]; 
+//			rawScore=(Double.parseDouble(scores[i][1])*.10)+ //first quiz is weighted 10%
+//					 (Double.parseDouble(scores[i][2])*.10)+ //second quiz is weighted 10%
+//					 (Double.parseDouble(scores[i][3])*.10)+ //third quiz is weighted 10%
+//					 (Double.parseDouble(scores[i][4])*.10)+ //fourth quiz is weighted 10%
+//					 (Double.parseDouble(scores[i][5])*.20)+ //midterm 1 is weighted 20%
+//					 (Double.parseDouble(scores[i][6])*.15)+ //midterm 2 is weighted 15%
+//					 (Double.parseDouble(scores[i][7])*.25); //final is weighted 25% 
+//
+//			if(rawScore>=89.45) {//rounding up to the nearest letterGrade
+//				letterGrade[i][1]="A"; 
+//			}
+//			else if(rawScore>=79.45){//rounding up to the nearest letterGrade
+//				letterGrade[i][1]="B";
+//			}
+//			else if(rawScore>=69.45){//rounding up to the nearest letterGrade
+//				letterGrade[i][1]="C";
+//			}
+//			else if(rawScore>=59.45){//rounding up to the nearest letterGrade
+//				letterGrade[i][1]="D";
+//			}
+//			else {
+//				letterGrade[i][1]="F";
+//			}	
+//			rawScore=0.0;//reset the rawScore
+//		}
+//	}//end method calcLetterGrade; 
+//
+//	/*
+//	 * Short description: The printGrade method prints the letterGrade to the outputFile.  <br>    
+//	 * Long description: The printGrade method prints the letterGrade to the outputFile.  
+//	 * The method reads the LetterGrader's letterGrade array.
+//	 * The method creates a textPrintStream Object and points it to the output file.    
+//	 * The method iterates through the letterGrade array and prints the values. <br> 
+//	 * It is referenced by: {@link #main} method  <br>
+//	 * It references:   No other methods. <br>
+//	 * @param None.     Consumes the letterGrader array.<br> 
+//	 * @return NONE.  	Modifies the outputFile <br>
+//	 */
+//	public void printGrade(){
+//		///write to the output file
+//		PrintWriter textPrintStream = null;
+//		try {//Create the objects from the files
+//			textPrintStream = new PrintWriter(new FileOutputStream(outputFile)); //Creates a TextStream for the second file
+//			lineCount=1; //resets lineCount to 1
+//			
+//			for(int i=0; i<letterGrade.length; i++) {
+//				String format="%-40s%s%n";  //formats 40 spaces between the two strings with a line break at the end. 
+//				String student= letterGrade[i][0]+":"; //creates the first string for the student name
+//				String grade=letterGrade[i][1]; //creates the second string with the letter grade
+//				textPrintStream.printf(format, student,grade); 
+//				}//end for loop
+//						
+//			}//end try 
+//		catch (FileNotFoundException e) { //no file
+//			System.out.println("Error opening the file " + fileName2 + "\n" + e.getMessage());
+//			System.exit(0);
+//		}//end catch
+//		textPrintStream.close();
+//
+//	}//end method printGrade
+//	
+//	/*
+//	 * Short description: The calculateGradeAverages determines the average, min, and maximum values for each quiz and exam.<br>    
+//	 * Long description: The calculateGradeAverages determines the average, min, and maximum values for each quiz and exam.  
+//	 * The method reads the LetterGrader's multi-dimensional score array.
+//	 * The method has a nested iteration.  With the outer iteration, it iterates through each student.  With the inner iteration, it iterates through each array at the same position, to evaluate each score.  <br> 
+//	 * It is referenced by: {@link #displayAverages} method  <br>
+//	 * It references:   NONE <br>
+//	 * @param NONE.     Reads values from multi-dimensional score array. <br>
+//	 * @return NONE.  	updates the avgGrade, minGrade, and maxGrade arrays <br>
+//	 */	
+//	private void calculateGradeAverages() {
+//		for(int i=1; i<8; i++) {//iterates through each exam/ scorePosition. There are 7 exams
+//			gradeTotal=0.0; //resets the gradeTotal
+//			
+//			for (int j=0; j<scores.length; j++) {//iterate through each student 
+//				if(j==0) {//sets the first score as the min and max
+//					minGrade[i-1]=Integer.parseInt(scores[j][i]);
+//					maxGrade[i-1]=Integer.parseInt(scores[j][i]);
+//				}//end if 
+//			
+//				gradeTotal+=Double.parseDouble(scores[j][i]); //Accumulates the aggregate temperature during the week.  Used to capture the average below.
+//				minGrade[i-1]=(minGrade[i-1]<Integer.parseInt(scores[j][i]))?minGrade[i-1]:Integer.parseInt(scores[j][i]); //Determine the min.  Replaces the Min value if the current value is lesser.  
+//				maxGrade[i-1]=(maxGrade[i-1]>Integer.parseInt(scores[j][i]))?maxGrade[i-1]:Integer.parseInt(scores[j][i]); //Determine the max.  Replaces the Max value if the current value is greater.
+//				
+//				if(j==scores.length-1) {//calculates the average grade after the final student
+//					avgGrade[i-1]=gradeTotal/scores.length; 
+//				}//end if
+//			}//end inner for loop for students-- iterating through the same position in each array. 		
+//		} //end outer for loop for exam scorePosition-- iterating through each array.
+//	}//end method calculateGradeRanges
+//
+//	/*
+//	 * Short description: The printGradeAverages displays the averages in the console.<br>    
+//	 * Long description: The printGradeAverages displays the averages in the console.   
+//	 * The method reads the values from three different arrays:  avgGrade, minGrade, and maxGrade. <br> 
+//	 * It is referenced by: {@link #displayAverages} method  <br>
+//	 * It references:   NONE <br>
+//	 * @param NONE.     Reads values from avgGrade, minGrad, and maxGrade arrays. <br>
+//	 * @return NONE.  	Prints values to the console <br>
+//	 */	
+//	private void printGradeAverages() {
+//		System.out.println("Here is the class averages: "); 
+//		String formatString="%-15s%-8s%-8s%-8s%-8s%-8s%-8s%-8s%n"; //8 leading spaces
+//		String formatFloat="%-15s%-8.2f%-8.2f%-8.2f%-8.2f%-8.2f%-8.2f%-8.2f%n"; //8 leading spaces with 2 decimals
+//		System.out.printf(formatString," ","Q1","Q2","Q3","Q4","Mid1","Mid2","Final"); 
+//		System.out.printf(formatFloat,"Average:",avgGrade[0],avgGrade[1],avgGrade[2],avgGrade[3],avgGrade[4],avgGrade[5],avgGrade[6]);
+//		System.out.printf(formatString,"Minimum:",minGrade[0],minGrade[1],minGrade[2],minGrade[3],minGrade[4],minGrade[5],minGrade[6]);
+//		System.out.printf(formatString,"Maximum:",maxGrade[0],maxGrade[1],maxGrade[2],maxGrade[3],maxGrade[4],maxGrade[5],maxGrade[6]);
+//	}//end method printAverages
+//	
+//	/*
+//	 * Short description: The displayAverages method calculates and displays the averages in the console.<br>    
+//	 * Long description: The displayAverages method calculates and displays the averages in the console.   
+//	 * It is referenced by: {@link #main} method  <br>
+//	 * It references:   {@link #calculateGradeAverages} method  <br>
+//	 * 					{@link #printGradeAverages} method  <br>
+//	 * @param None.     Consumes the scores array.
+//	 * 					Uses the gradeTotal double variable as storage. <br> 
+//	 * @return NONE.  	Modifies the avgGrade, minGrade, maxGrade arrays. <br>
+//	 */	
+//	public void displayAverages(){
+//		this.calculateGradeAverages(); 
+//		this.printGradeAverages();
+//	}//end method createAverages
+//	
+//}//end LetterGrader class
+//*/

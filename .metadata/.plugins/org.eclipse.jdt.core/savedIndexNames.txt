@@ -1,0 +1,17 @@
+INDEX VERSION 1.131+/home/michael/eclipse-workspace/.metadata/.plugins/org.eclipse.jdt.core
+2238365634.index
+3324093015.index
+1812536055.index
+2850146222.index
+931484173.index
+4067266388.index
+1746351416.index
+2928411575.index
+1082286747.index
+3493691146.index
+2805616540.index
+820549140.index
+3649778465.index
+2699567297.index
+1206888066.index
+646308851.index

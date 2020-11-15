@@ -1,0 +1,28 @@
+package finalproject;
+
+//add additional class with inheritance LetterGrade 
+//have output file created
+//update the print statements for the output file
+//add exceptions for CreateScoreArray
+//add the "This." modifier to make the OOO clearer.  
+//review the previous homework solutions
+//add cleanup
+
+///uses the main class LetterGrader-- which determines the grade
+public class TestLetterGrader {
+	
+	public static void main (String args[]) {
+		if(args.length < 2) {//validates there are two arguments
+			System.out.println("Usage: must have an input and output file.  Please update your arguments.");
+		}//end if
+		else {
+			LetterGrader letterGrader=new LetterGrader(args[0], args[1]);
+			 
+			letterGrader.readScore(); 
+			letterGrader.calcLetterGrade(); 
+			letterGrader.printGrade(); 
+			letterGrader.displayAverages(); 
+			//letterGrader.doCleanup();	
+		}//end else
+	}// end main
+} //end class TestLetterGrader

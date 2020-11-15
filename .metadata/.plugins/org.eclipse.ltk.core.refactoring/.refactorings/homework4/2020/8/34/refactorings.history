@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename compilation unit &apos;homework4.box.java&apos; to &apos;boxLoop.java&apos;&#x0A;- Original project: &apos;homework4&apos;&#x0A;- Original element: &apos;homework4.box.java&apos;&#x0A;- Renamed element: &apos;homework4.boxLoop.java&apos;" description="Rename compilation unit &apos;box.java&apos;" flags="2" id="org.eclipse.jdt.ui.rename.compilationunit" input="/src&lt;homework4{box.java" name="boxLoop.java" references="false" stamp="1598127688602" version="1.0"/>
+</session>
